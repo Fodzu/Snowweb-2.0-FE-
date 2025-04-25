@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wiki with Sidebar</title>
+  <script src="js/JSAPI.js"></script>
+  <link rel="stylesheet" href="css/WintersWiki.css" />
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="css/item-cards.css" /> </head>
+<body>
+
+<div class="sidebar">
+  <div class="logo">WINTERS END WIKI</div>
+  <div class="sidebar-toggle-line" id="sidebarToggle"></div>
+
+  <div class="search-box">
+    <input type="text" placeholder="Search..." />
+  </div>
+
+  <div class="nav-buttons">
+    <button id="homeBtn" class="btn-home">HOME</button>
+    <button class="btn-getting-started">GETTING STARTED</button>
+    <button class="btn-gameplay">GAMEPLAY</button>
+    <button class="btn-characters">CHARACTERS</button>
+    <button id="itemsBtn" class="btn-items">ITEMS</button>
+    <button class="btn-updatelog">UPDATE LOG</button>
+  </div>
+
+  <div class="account-info">
+    <div class="profile-picture"></div>
+    <div class="account-name">FodzuDev</div>
+  </div>
+</div>
+
+<div class="main-content">
+  <h1>Welcome to the Wiki</h1>
+  <p>This is the main content area. Add your wiki pages, info, or tabs here.</p>
+
+  <div id="itemCardsContainer" class="item-card-container" style="display: none;">
+  </div>
+
+    <div class="item-card">
+      <div class="item-icon-area">
+        <img src="path/to/another/icon.png" alt="Another Icon">
+      </div>
+      <div class="item-details">
+        <h3 class="item-name">ANOTHER ITEM</h3>
+        <p class="item-amount">Found: 5</p>
+        <p class="item-value">Worth: 10 Gold</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="js/WikiJS.js"></script>
+</body>
+</html>

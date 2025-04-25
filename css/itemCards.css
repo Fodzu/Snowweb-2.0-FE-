@@ -1,0 +1,52 @@
+.item-card {
+    background-color: #333; /* A dark grey, adjust as needed */
+    border-radius: 10px; /* For the rounded corners */
+    padding: 15px; /* Add some spacing inside the card */
+    width: 200px; /* Adjust the width as needed */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
+    display: flex; /* To arrange icon and details side by side or use flex-direction: column */
+    flex-direction: column; /* Stack icon and details vertically */
+    align-items: center; /* Center the content horizontally */
+    text-align: center; /* Center text within the details */
+}
+
+.item-icon {
+    width: 80px; /* Adjust icon size */
+    height: 80px;
+    margin-bottom: 10px; /* Spacing between icon and text */
+    /* You might add styling for a placeholder background if no icon is present yet */
+    background-color: #555; /* Example placeholder */
+    border-radius: 5px; /* Optional: round the icon background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* Example for a placeholder text */
+    color: #eee;
+}
+
+.item-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure the image fits within the container */
+}
+
+.item-details .item-name {
+    color: #eee; /* Light text for the item name */
+    margin-top: 0; /* Remove default top margin */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.item-details p {
+    color: #ccc; /* Slightly lighter text for other details */
+    margin-bottom: 3px;
+    font-size: 0.9em; /* Slightly smaller font size */
+}
+
+/* You might need to adjust the layout for multiple cards, e.g., using flexbox or grid on a container element */
+.item-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Creates a responsive grid */
+    gap: 20px; /* Spacing between cards */
+    padding: 20px; /* Padding around the grid */
+}
