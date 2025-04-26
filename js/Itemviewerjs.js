@@ -1,33 +1,35 @@
+// Define the openItemViewer function outside the DOMContentLoaded listener so it's globally accessible
+function openItemViewer(item) {
+    document.getElementById('viewerImage').src = item.imageUrl || '';
+    document.getElementById('viewerName').textContent = item.name || 'Unnamed item';
+    document.getElementById('viewerDescription').textContent = item.description || 'No description';
+    document.getElementById('viewerExtra').textContent = item.extra || '';
+
+    const viewer = document.getElementById('itemViewer');
+    viewer.classList.remove('hidden');
+    viewer.classList.add('show'); // Ensure visibility is toggled with CSS classes
+
+    // Initially show details and hide edit form
+    document.getElementById('viewerDetails').style.display = 'block';
+    document.getElementById('editForm').style.display = 'none';
+
+    // Store item data for editing
+    viewer.dataset.itemId = item.id;
+    viewer.dataset.itemName = item.name;
+    viewer.dataset.itemDescription = item.description;
+    viewer.dataset.itemImageUrl = item.imageUrl;
+    viewer.dataset.itemQuantity = item.quantity;
+    viewer.dataset.itemValue = item.value;
+}
+
+// Wait for the DOM to be fully loaded before attaching other event listeners
 document.addEventListener('DOMContentLoaded', function () {
-    function openitemViewer(item) {
-        document.getElementById('viewerImage').src = item.imageUrl || '';
-        document.getElementById('viewerName').textContent = item.name || 'Unnamed item';
-        document.getElementById('viewerDescription').textContent = item.description || 'No description';
-        document.getElementById('viewerExtra').textContent = item.extra || '';
-
-        const viewer = document.getElementById('itemViewer');
-        viewer.classList.remove('hidden');
-        viewer.classList.add('show'); // Ensure visibility is toggled with CSS classes
-
-        // Initially show details and hide edit form
-        document.getElementById('viewerDetails').style.display = 'block';
-        document.getElementById('editForm').style.display = 'none';
-
-        // Store item data for editing
-        viewer.dataset.itemId = item.id;
-        viewer.dataset.itemName = item.name;
-        viewer.dataset.itemDescription = item.description;
-        viewer.dataset.itemImageUrl = item.imageUrl;
-        viewer.dataset.itemQuantity = item.quantity;
-        viewer.dataset.itemValue = item.value;
-    }
-
     const viewerClose = document.getElementById('viewerClose');
     if (viewerClose) {
-        viewerClose.addEventListener('click', closeitemViewer);
+        viewerClose.addEventListener('click', closeItemViewer);
     }
 
-    function closeitemViewer() {
+    function closeItemViewer() {
         const viewer = document.getElementById('itemViewer');
         viewer.classList.add('hidden'); // Hide the viewer
         viewer.classList.remove('show');
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (itemViewer) {
         itemViewer.addEventListener('click', function (e) {
             if (e.target === this) {
-                closeitemViewer(); // Close viewer if the background is clicked
+                closeItemViewer(); // Close viewer if the background is clicked
             }
         });
     }
@@ -46,64 +48,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById('editBtn');
     if (editBtn) {
         editBtn.addEventListener('click', () => {
-            // Hide details and show the edit form
-            document.getElementById('viewerDetails').style.display = 'none';
-            document.getElementById('editForm').style.display = 'block';
-
-            // Populate edit form with current item data
+            // Collect item data from the viewer
             const viewer = document.getElementById('itemViewer');
-            document.getElementById('edititemId').value = viewer.dataset.itemId;
-            document.getElementById('editName').value = viewer.dataset.itemName;
-            document.getElementById('editDescription').value = viewer.dataset.itemDescription || '';
-            document.getElementById('editImageUrl').value = viewer.dataset.itemImageUrl || '';
-            document.getElementById('editQuantity').value = viewer.dataset.itemQuantity || '';
-            document.getElementById('editValue').value = viewer.dataset.itemValue || '';
+            const itemId = viewer.dataset.itemId;
+            const itemName = viewer.dataset.itemName;
+            const itemDescription = viewer.dataset.itemDescription;
+            const itemImageUrl = viewer.dataset.itemImageUrl;
+            const itemQuantity = viewer.dataset.itemQuantity;
+            const itemValue = viewer.dataset.itemValue;
+
+            // Construct the URL to the edit form page with item data in the query parameters
+            const editUrl = `edititemForm.html?id=${itemId}&name=${encodeURIComponent(itemName)}&description=${encodeURIComponent(itemDescription)}&imageUrl=${encodeURIComponent(itemImageUrl)}&quantity=${encodeURIComponent(itemQuantity)}&value=${encodeURIComponent(itemValue)}`;
+
+            // Redirect to the edit form page
+            window.location.href = editUrl;
         });
     }
-
-    // Submit edited item functionality
-    const submitEditBtn = document.getElementById('submitEditBtn');
-    if (submitEditBtn) {
-        submitEditBtn.addEventListener('click', (event) => {
-            const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
-            event.preventDefault();
-
-            // Get the updated item data from the form
-            const itemId = document.getElementById('edititemId').value;
-            const name = document.getElementById('editName').value;
-            const description = document.getElementById('editDescription').value;
-            const imageUrl = document.getElementById('editImageUrl').value;
-            const quantity = document.getElementById('editQuantity').value;
-            const value = document.getElementById('editValue').value;
-
-            const updateditem = { name, description, imageUrl, quantity, value };
-
-            // Send the updated data to the backend
-            fetch(`${backendUrl}/api/items/${itemId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updateditem),
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('item updated:', data);
-                    closeitemViewer();
-                    // Refresh the item list
-                    document.getElementById('itemsBtn').click();
-                })
-                .catch(error => {
-                    console.error('Error updating item:', error);
-                });
-        });
-    }
-
     // Delete button functionality
     const deleteBtn = document.getElementById('deleteBtn');
     if (deleteBtn) {
@@ -120,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(response => {
                         if (response.ok) {
                             console.log('item deleted:', itemId);
-                            closeitemViewer();
+                            closeItemViewer();
                             // Refresh the item list
                             document.getElementById('itemsBtn').click();
                         } else {

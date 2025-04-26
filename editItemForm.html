@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+</head>
+<style>
+    /* Body Styling */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        padding: 50px;
+    }
+
+    /* Header */
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+    }
+
+    /* Form Styling */
+    form {
+        margin: 20px auto;
+        width: 50%;
+        background-color: #222;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Form Input and Button Styling */
+    input, button, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+    }
+
+    /* Input Fields */
+    input {
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* Description Box (Textarea) Styling */
+    textarea {
+        background-color: #333;
+        color: #fff;
+        resize: vertical; /* Allow vertical resizing */
+        min-height: 120px; /* Set a minimum height for the textarea */
+        padding: 10px;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Button Styling */
+    button {
+        background: linear-gradient(135deg, #6c63ff, #9a8fff);
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #7b73ff;
+    }
+
+    /* Link Styling */
+    a {
+        color: #9a8fff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+</style>
+<body>
+<div class="container">
+    <h1>Edit Item</h1>
+    <form id="editItemForm" action="/updateItem" method="POST">
+        <div class="form-group">
+            <label for="itemID">Item ID:</label>
+            <input type="text" id="itemID" name="id" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="newItemName">New Name:</label>
+            <input type="text" id="newItemName" name="name">
+        </div>
+
+        <div class="form-group">
+            <label for="newItemDescription">New Description:</label>
+            <textarea id="newItemDescription" name="description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="newItemImageUrl">New Image URL:</label>
+            <input type="text" id="newItemImageUrl" name="imageUrl">
+        </div>
+
+        <div class="form-group">
+            <label for="newItemQuantity">New Quantity:</label>
+            <input type="number" id="newItemQuantity" name="quantity">
+        </div>
+
+        <div class="form-group">
+            <label for="newItemValue">New Value:</label>
+            <input type="number" id="newItemValue" name="value">
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Update Item</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Extract item data from URL parameters
+    function getQueryParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return {
+            id: urlParams.get('id'),
+            name: urlParams.get('name'),
+            description: urlParams.get('description'),
+            imageUrl: urlParams.get('imageUrl'),
+            quantity: urlParams.get('quantity'),
+            value: urlParams.get('value')
+        };
+    }
+
+    // Populate form fields with the extracted values
+    document.addEventListener('DOMContentLoaded', function () {
+        const item = getQueryParams();
+
+        // Set form field values with item data
+        document.getElementById('itemID').value = item.id;
+        document.getElementById('newItemName').value = item.name;
+        document.getElementById('newItemDescription').value = item.description;
+        document.getElementById('newItemImageUrl').value = item.imageUrl;
+        document.getElementById('newItemQuantity').value = item.quantity;
+        document.getElementById('newItemValue').value = item.value;
+    });
+</script>
+</body>
+</html>
