@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const itemsBtn = document.getElementById('itemsBtn');
     const itemCardsContainer = document.getElementById('itemCardsContainer');
-    const backendUrl = 'https://snowbase-production.up.railway.app';
+    const backendUrl = 'http://localhost:8081';
 
     itemsBtn.addEventListener('click', function() {
         itemCardsContainer.innerHTML = '';
@@ -77,12 +77,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="item-details">
                             <h3 class="item-name">${item.name || 'Unnamed Item'}</h3>
-                            ${item.quantity ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
+                            ${item.quantity ? `<p class="item-amount">Found: ${item.quantity}</p>` : ''}
                             ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
                         </div>
                     `;
 
                     card.addEventListener('click', function() {
+                        console.log('Item being passed to openItemViewer:', item);
                         openItemViewer(item);
                         const currentlyExpanded = document.querySelector('.item-card.expanded');
                         if (currentlyExpanded && currentlyExpanded !== card) {

@@ -122,54 +122,87 @@
 </div>
 
 <script>
-    const submitEditBtn = document.getElementById('submitEditBtn');
-    if (submitEditBtn) {
-        submitEditBtn.addEventListener('click', (event) => {
-            const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
-            event.preventDefault();
+    document.addEventListener('DOMContentLoaded', () => {
+        const itemIdInput = document.getElementById('itemID');
+        const nameInput = document.getElementById('newItemName');
+        const descriptionInput = document.getElementById('newItemDescription');
+        const imageUrlInput = document.getElementById('newItemImageUrl');
+        const quantityInput = document.getElementById('newItemQuantity');
+        const valueInput = document.getElementById('newItemValue');
+        const backendUrl = 'http://localhost:8081'; // Backend URL
 
-            // Get the updated item data from the form
-            const itemId = document.getElementById('edititemId').value; // Ensure this is populated
-            const name = document.getElementById('editName').value;
-            const description = document.getElementById('editDescription').value;
-            const imageUrl = document.getElementById('editImageUrl').value;
-            const quantity = document.getElementById('editQuantity').value;
-            const value = document.getElementById('editValue').value;
+        function getItemIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
 
-            // Ensure itemId is valid
-            if (!itemId) {
-                console.error('Item ID is missing!');
-                return;
-            }
+        const itemId = getItemIdFromUrl();
 
-            const updatedItem = { name, description, imageUrl, quantity, value };
-
-            // Send the updated data to the backend
-            fetch(`${backendUrl}/api/items/${itemId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedItem),
-            })
+        if (itemId) {
+            fetch(`${backendUrl}/api/items/${itemId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.json();
                 })
-                .then(data => {
-                    console.log('Item updated:', data);
-
-                    // Redirect after a successful update
-                    window.location.href = '/winterswiki.html'; // Or wherever you'd like to redirect
+                .then(item => {
+                    itemIdInput.value = item.id;
+                    nameInput.value = item.name;
+                    descriptionInput.value = item.description;
+                    imageUrlInput.value = item.imageUrl;
+                    quantityInput.value = item.quantity;
+                    valueInput.value = item.value;
                 })
                 .catch(error => {
-                    console.error('Error updating item:', error);
+                    console.error('Error fetching item:', error);
                 });
-        });
-    }
+        } else {
+            console.error('Item ID not found in the URL.');
+        }
 
+        const editItemForm = document.getElementById('editItemForm');
+        if (editItemForm) {
+            editItemForm.addEventListener('submit', (event) => { // Listen for the form's submit event
+                event.preventDefault(); // Prevent the default form submission
+
+                const itemId = document.getElementById('itemID').value;
+                const name = document.getElementById('newItemName').value;
+                const description = document.getElementById('newItemDescription').value;
+                const imageUrl = document.getElementById('newItemImageUrl').value;
+                const quantity = document.getElementById('newItemQuantity').value;
+                const value = document.getElementById('newItemValue').value;
+
+                if (!itemId) {
+                    console.error('Item ID is missing!');
+                    return;
+                }
+
+                const updatedItem = { name, description, imageUrl, quantity, value };
+
+                fetch(`${backendUrl}/api/items/${itemId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedItem),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Item updated:', data);
+                        window.location.href = '/winterswiki.html'; // Redirect on success
+                    })
+                    .catch(error => {
+                        console.error('Error updating item:', error);
+                    });
+            });
+        }
+    });
+</script>
 </script>
 </body>
-</html>

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('submitBtn').addEventListener('click', function(event) {
     event.preventDefault();
-    const backendUrl = 'https://snowbase-production.up.railway.app';
+    const backendUrl = 'http://localhost:8081';
 
     const newItem = {
         name: document.getElementById('itemName').value,

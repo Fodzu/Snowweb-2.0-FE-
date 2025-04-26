@@ -6,6 +6,7 @@ function openItemViewer(item) {
     document.getElementById('viewerExtra').textContent = item.extra || '';
 
     const viewer = document.getElementById('itemViewer');
+    viewer.dataset.itemId = item.id;
     viewer.classList.remove('hidden');
     viewer.classList.add('show'); // Ensure visibility is toggled with CSS classes
 
@@ -48,19 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById('editBtn');
     if (editBtn) {
         editBtn.addEventListener('click', () => {
-            // Collect item data from the viewer
             const viewer = document.getElementById('itemViewer');
             const itemId = viewer.dataset.itemId;
-            const itemName = viewer.dataset.itemName;
-            const itemDescription = viewer.dataset.itemDescription;
-            const itemImageUrl = viewer.dataset.itemImageUrl;
-            const itemQuantity = viewer.dataset.itemQuantity;
-            const itemValue = viewer.dataset.itemValue;
 
-            // Construct the URL to the edit form page with item data in the query parameters
-            const editUrl = `edititemForm.html?id=${itemId}&name=${encodeURIComponent(itemName)}&description=${encodeURIComponent(itemDescription)}&imageUrl=${encodeURIComponent(itemImageUrl)}&quantity=${encodeURIComponent(itemQuantity)}&value=${encodeURIComponent(itemValue)}`;
+            const editUrl = `edititemForm.html?id=${itemId}`; // Only pass the ID
+            console.log('ItemViewer Dataset before reading itemId:', viewer.dataset); // Add this line
 
-            // Redirect to the edit form page
             window.location.href = editUrl;
         });
     }
@@ -70,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteBtn.addEventListener('click', () => {
             const itemId = document.getElementById('itemViewer').dataset.itemId;
             const itemName = document.getElementById('itemViewer').dataset.itemName;
-            const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
+            const backendUrl = 'http://localhost:8081'; // Backend URL
 
             // Confirm deletion
             if (confirm(`Are you sure you want to delete ${itemName}?`)) {
