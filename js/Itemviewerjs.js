@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    function openItemViewer(Item) {
-        document.getElementById('viewerImage').src = Item.imageUrl || '';
-        document.getElementById('viewerName').textContent = Item.name || 'Unnamed Item';
-        document.getElementById('viewerDescription').textContent = Item.description || 'No description';
-        document.getElementById('viewerExtra').textContent = Item.extra || '';
+    function openitemViewer(item) {
+        document.getElementById('viewerImage').src = item.imageUrl || '';
+        document.getElementById('viewerName').textContent = item.name || 'Unnamed item';
+        document.getElementById('viewerDescription').textContent = item.description || 'No description';
+        document.getElementById('viewerExtra').textContent = item.extra || '';
 
         const viewer = document.getElementById('itemViewer');
         viewer.classList.remove('hidden');
@@ -14,20 +14,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('editForm').style.display = 'none';
 
         // Store item data for editing
-        viewer.dataset.itemId = Item.id;
-        viewer.dataset.itemName = Item.name;
-        viewer.dataset.itemDescription = Item.description;
-        viewer.dataset.itemImageUrl = Item.imageUrl;
-        viewer.dataset.itemQuantity = Item.quantity;
-        viewer.dataset.itemValue = Item.value;
+        viewer.dataset.itemId = item.id;
+        viewer.dataset.itemName = item.name;
+        viewer.dataset.itemDescription = item.description;
+        viewer.dataset.itemImageUrl = item.imageUrl;
+        viewer.dataset.itemQuantity = item.quantity;
+        viewer.dataset.itemValue = item.value;
     }
 
     const viewerClose = document.getElementById('viewerClose');
     if (viewerClose) {
-        viewerClose.addEventListener('click', closeItemViewer);
+        viewerClose.addEventListener('click', closeitemViewer);
     }
 
-    function closeItemViewer() {
+    function closeitemViewer() {
         const viewer = document.getElementById('itemViewer');
         viewer.classList.add('hidden'); // Hide the viewer
         viewer.classList.remove('show');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (itemViewer) {
         itemViewer.addEventListener('click', function (e) {
             if (e.target === this) {
-                closeItemViewer(); // Close viewer if the background is clicked
+                closeitemViewer(); // Close viewer if the background is clicked
             }
         });
     }
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Populate edit form with current item data
             const viewer = document.getElementById('itemViewer');
-            document.getElementById('editItemId').value = viewer.dataset.itemId;
+            document.getElementById('edititemId').value = viewer.dataset.itemId;
             document.getElementById('editName').value = viewer.dataset.itemName;
             document.getElementById('editDescription').value = viewer.dataset.itemDescription || '';
             document.getElementById('editImageUrl').value = viewer.dataset.itemImageUrl || '';
@@ -69,14 +69,14 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
 
             // Get the updated item data from the form
-            const itemId = document.getElementById('editItemId').value;
+            const itemId = document.getElementById('edititemId').value;
             const name = document.getElementById('editName').value;
             const description = document.getElementById('editDescription').value;
             const imageUrl = document.getElementById('editImageUrl').value;
             const quantity = document.getElementById('editQuantity').value;
             const value = document.getElementById('editValue').value;
 
-            const updatedItem = { name, description, imageUrl, quantity, value };
+            const updateditem = { name, description, imageUrl, quantity, value };
 
             // Send the updated data to the backend
             fetch(`${backendUrl}/api/items/${itemId}`, {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updatedItem),
+                body: JSON.stringify(updateditem),
             })
                 .then(response => {
                     if (!response.ok) {
@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Item updated:', data);
-                    closeItemViewer();
+                    console.log('item updated:', data);
+                    closeitemViewer();
                     // Refresh the item list
                     document.getElementById('itemsBtn').click();
                 })
@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                     .then(response => {
                         if (response.ok) {
-                            console.log('Item deleted:', itemId);
-                            closeItemViewer();
+                            console.log('item deleted:', itemId);
+                            closeitemViewer();
                             // Refresh the item list
                             document.getElementById('itemsBtn').click();
                         } else {
