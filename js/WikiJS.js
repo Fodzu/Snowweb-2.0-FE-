@@ -83,11 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${item.quantity ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
                             ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
                         </div>
-                        <div class="item-buttons" style="display:none;">
-                            <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
-                        </div>
-                    `;
+` ;
 
 
                     const buttons = card.querySelector('.item-buttons');
