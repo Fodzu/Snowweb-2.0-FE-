@@ -51,7 +51,7 @@ document.getElementById('editBtn').addEventListener('click', () => {
 });
 
 document.getElementById('submitEditBtn').addEventListener('click', (event) => {
-    const backendUrl = 'https://snowbase-production.up.railway.app';
+    const backendUrl = 'https://snowbase-production.up.railway.app'; // ADDED backendUrl
     event.preventDefault();
     const itemId = document.getElementById('editItemId').value;
     const name = document.getElementById('editName').value;
@@ -89,7 +89,7 @@ document.getElementById('submitEditBtn').addEventListener('click', (event) => {
 document.getElementById('deleteBtn').addEventListener('click', () => {
     const itemId = document.getElementById('itemViewer').dataset.itemId;
     const itemName = document.getElementById('itemViewer').dataset.itemName;
-    const backendUrl = 'https://snowbase-production.up.railway.app';
+    const backendUrl = 'https://snowbase-production.up.railway.app'; // ADDED backendUrl
     if (confirm(`Are you sure you want to delete ${itemName}?`)) {
         fetch(`${backendUrl}/api/items/${itemId}`, {
             method: 'DELETE',
