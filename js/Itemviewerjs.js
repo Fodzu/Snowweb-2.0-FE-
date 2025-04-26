@@ -6,7 +6,7 @@ function openItemViewer(itemData) {
 
     const viewer = document.getElementById('itemViewer');
     viewer.classList.remove('hidden');
-    viewer.classList.add('show');
+    viewer.classList.add('show'); // Ensure visibility is toggled with CSS classes
 
     // Initially show details and hide edit form
     document.getElementById('viewerDetails').style.display = 'block';
@@ -25,18 +25,19 @@ document.getElementById('viewerClose').addEventListener('click', closeItemViewer
 
 function closeItemViewer() {
     const viewer = document.getElementById('itemViewer');
-    viewer.classList.add('hidden');
+    viewer.classList.add('hidden'); // Hide the viewer
     viewer.classList.remove('show');
 }
 
-document.getElementById('itemViewer').addEventListener('click', function(e) {
+document.getElementById('itemViewer').addEventListener('click', function (e) {
     if (e.target === this) {
-        closeItemViewer();
+        closeItemViewer(); // Close viewer if the background is clicked
     }
 });
 
+// Edit button functionality
 document.getElementById('editBtn').addEventListener('click', () => {
-    // Hide details and show edit form
+    // Hide details and show the edit form
     document.getElementById('viewerDetails').style.display = 'none';
     document.getElementById('editForm').style.display = 'block';
 
@@ -50,17 +51,22 @@ document.getElementById('editBtn').addEventListener('click', () => {
     document.getElementById('editValue').value = viewer.dataset.itemValue || '';
 });
 
+// Submit edited item functionality
 document.getElementById('submitEditBtn').addEventListener('click', (event) => {
-    const backendUrl = 'https://snowbase-production.up.railway.app'; // ADDED backendUrl
+    const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
     event.preventDefault();
+
+    // Get the updated item data from the form
     const itemId = document.getElementById('editItemId').value;
     const name = document.getElementById('editName').value;
     const description = document.getElementById('editDescription').value;
     const imageUrl = document.getElementById('editImageUrl').value;
     const quantity = document.getElementById('editQuantity').value;
     const value = document.getElementById('editValue').value;
+
     const updatedItem = { name, description, imageUrl, quantity, value };
 
+    // Send the updated data to the backend
     fetch(`${backendUrl}/api/items/${itemId}`, {
         method: 'PUT',
         headers: {
@@ -86,10 +92,13 @@ document.getElementById('submitEditBtn').addEventListener('click', (event) => {
         });
 });
 
+// Delete button functionality
 document.getElementById('deleteBtn').addEventListener('click', () => {
     const itemId = document.getElementById('itemViewer').dataset.itemId;
     const itemName = document.getElementById('itemViewer').dataset.itemName;
-    const backendUrl = 'https://snowbase-production.up.railway.app'; // ADDED backendUrl
+    const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
+
+    // Confirm deletion
     if (confirm(`Are you sure you want to delete ${itemName}?`)) {
         fetch(`${backendUrl}/api/items/${itemId}`, {
             method: 'DELETE',
