@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const itemsBtn = document.getElementById('itemsBtn');
     const itemCardsContainer = document.getElementById('itemCardsContainer');
-    const backendUrl = 'snowbase-production.up.railway.app'; // Replace with your actual backend URL
+    const backendUrl = 'snowbase-production.up.railway.app:8080';
 
     itemsBtn.addEventListener('click', function() {
         if (itemCardsContainer.style.display === 'none') {
