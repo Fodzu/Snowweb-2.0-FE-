@@ -122,7 +122,6 @@
 </div>
 
 <script>
-    // Submit edited item functionality
     const submitEditBtn = document.getElementById('submitEditBtn');
     if (submitEditBtn) {
         submitEditBtn.addEventListener('click', (event) => {
@@ -130,14 +129,20 @@
             event.preventDefault();
 
             // Get the updated item data from the form
-            const itemId = document.getElementById('edititemId').value;
+            const itemId = document.getElementById('edititemId').value; // Ensure this is populated
             const name = document.getElementById('editName').value;
             const description = document.getElementById('editDescription').value;
             const imageUrl = document.getElementById('editImageUrl').value;
             const quantity = document.getElementById('editQuantity').value;
             const value = document.getElementById('editValue').value;
 
-            const updateditem = { name, description, imageUrl, quantity, value };
+            // Ensure itemId is valid
+            if (!itemId) {
+                console.error('Item ID is missing!');
+                return;
+            }
+
+            const updatedItem = { name, description, imageUrl, quantity, value };
 
             // Send the updated data to the backend
             fetch(`${backendUrl}/api/items/${itemId}`, {
@@ -145,7 +150,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updateditem),
+                body: JSON.stringify(updatedItem),
             })
                 .then(response => {
                     if (!response.ok) {
@@ -154,9 +159,10 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log('item updated:', data);
+                    console.log('Item updated:', data);
 
-                    window.location.href = 'winterswiki.html';
+                    // Redirect after a successful update
+                    window.location.href = '/winterswiki.html'; // Or wherever you'd like to redirect
                 })
                 .catch(error => {
                     console.error('Error updating item:', error);
