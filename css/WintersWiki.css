@@ -154,6 +154,9 @@ body {
 .nav-buttons .btn-updatelog {
     border-color: #ff69b4; /* Hot pink */
 }
+.nav-buttons .btn-Additem{
+    border-color: #ff078b;
+}
 
 /* Optional hover effect */
 .nav-buttons button:hover {
@@ -181,6 +184,9 @@ body {
 
 .nav-buttons button:nth-child(6) {
     animation-delay: 0.6s;
+}
+.nav-buttons button:nth-child(7) {
+    animation-delay: 0.7s;
 }
 
 @keyframes slideIn {

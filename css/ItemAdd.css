@@ -1,0 +1,58 @@
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 15px;
+    margin: 12px 0;
+    border: 2px solid #009dff;
+    border-radius: 12px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 6px #00f0ff55;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: #009dff;
+    background-color: #222;
+    box-shadow: 0 0 12px #00f0ffaa;
+    transform: scale(1.02);
+    outline: none;
+}
+
+label {
+    font-weight: bold;
+    color: #009dff;
+    margin-top: 20px;
+    display: block;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+button[type="submit"] {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    background-color: #006927;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #00d94f88;
+}
+
+button[type="submit"]:hover {
+    background-color: #00b93f;
+    box-shadow: 0 0 15px #00d94faa;
+    transform: scale(1.03);
+}

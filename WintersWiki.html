@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/WintersWiki.css" />
   <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
   <link rel="stylesheet" href="css/item-cards.css" /> </head>
+  <link rel="stylesheet" href="css/itemviewer.css">
 <body>
 
 <div class="sidebar">
@@ -24,6 +25,8 @@
     <button class="btn-characters">CHARACTERS</button>
     <button id="itemsBtn" class="btn-items">ITEMS</button>
     <button class="btn-updatelog">UPDATE LOG</button>
+    <button class="btn-Additem">ADD</button>
+
   </div>
 
   <div class="account-info">
@@ -36,8 +39,34 @@
   <h1>Welcome to the Wiki</h1>
   <p>This is the main content area. Add your wiki pages, info, or tabs here.</p>
 
+  <div id="itemViewer" class="item-viewer hidden">
+    <div class="viewer-content">
+      <div class="viewer-left">
+        <img id="viewerImage" src="" alt="Item Image">
+      </div>
+      <div class="viewer-right">
+        <div class="viewer-header">
+          <h2 id="viewerName">Item Name Here</h2>
+          <div id="viewerClose" class="close-button"></div>
+        </div>
+        <div id="viewerDescription" class="viewer-description">
+          Description here...
+        </div>
+        <div id="viewerExtra" class="viewer-extra">
+          Yada yada...
+        </div>
+      </div>
+    </div>
+    <div class="viewer-actions">
+      <button id="deleteBtn" class="delete-button">DELETE</button>
+      <button id="editBtn" class="edit-button">EDIT</button>
+    </div>
+  </div>
+
   <div id="itemCardsContainer" class="item-card-container" style="display: none;">
   </div>
+
+
 
 </div>
 <script src="js/WikiJS.js"></script>

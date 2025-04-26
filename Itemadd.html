@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Winters End Wiki</title>
+    <link rel="stylesheet" href="css/WintersWiki.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/item-cards.css" />
+    <link rel="stylesheet" href="css/ItemAdd.css" />
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo">WINTERS END WIKI</div>
+    <div class="sidebar-toggle-line" id="sidebarToggle"></div>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search..." />
+    </div>
+
+    <div class="nav-buttons">
+        <button id="homeBtn" class="btn-home">HOME</button>
+        <button class="btn-getting-started">GETTING STARTED</button>
+        <button class="btn-gameplay">GAMEPLAY</button>
+        <button class="btn-characters">CHARACTERS</button>
+        <button id="itemsBtn" class="btn-items">ITEMS</button>
+        <button class="btn-updatelog">UPDATE LOG</button>
+    </div>
+
+    <div class="account-info">
+        <div class="profile-picture"></div>
+        <div class="account-name">FodzuDev</div>
+    </div>
+</div>
+
+<div class="main-content">
+
+    <form id="itemForm">
+        <label>Item Name</label>
+        <label for="itemName"></label><input type="text" id="itemName" required>
+
+        <label>Item Description</label>
+        <label for="itemDescription"></label><input type="text" id="itemDescription" required>
+
+        <label>Item IMG URL</label>
+        <label for="itemImageUrl"></label><input type="text" id="itemImageUrl" required>
+
+        <label>Quantity</label>
+        <label for="itemQuantity"></label><input type="number" id="itemQuantity" required>
+
+        <label>Sell Price</label>
+        <label for="itemValue"></label><input type="number" id="itemValue" required>
+
+        <button type="submit" id="submitBtn">SUBMIT</button>
+    </form>
+
+
+</div>
+<script src="js/ItemAdd.js"></script>
+</body>
+</html>

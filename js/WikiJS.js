@@ -12,6 +12,9 @@ document.getElementById('sidebarToggle').addEventListener('click', () => {
 document.getElementById('homeBtn').addEventListener('click', () => {
     window.location.href = 'index.html';
 });
+document.querySelector('.btn-Additem').addEventListener('click', function() {
+    window.location.href = 'itemadd.html'; // Redirect to itemadd.html
+});
 
 
 
@@ -44,17 +47,17 @@ document.addEventListener('DOMContentLoaded', function() {
         itemCardsContainer.style.display = 'grid'; // Show the container
 
         // Render skeleton cards
-        for (let i = 0; i < 4; i++) { // Example: show 4 skeleton cards initially
+        for (let i = 0; i < 4; i++) {
             const skeletonCard = document.createElement('div');
             skeletonCard.classList.add('item-card', 'skeleton-card');
             skeletonCard.innerHTML = `
-        <div class="item-icon-area skeleton-icon"></div>
-        <div class="item-details">
-          <h3 class="item-name skeleton-text skeleton-text-long"></h3>
-          <p class="item-amount skeleton-text skeleton-text-medium"></p>
-          <p class="item-value skeleton-text skeleton-text-short"></p>
-        </div>
-      `;
+                <div class="item-icon-area skeleton-icon"></div>
+                <div class="item-details">
+                    <h3 class="item-name skeleton-text skeleton-text-long"></h3>
+                    <p class="item-amount skeleton-text skeleton-text-medium"></p>
+                    <p class="item-value skeleton-text skeleton-text-short"></p>
+                </div>
+            `;
             itemCardsContainer.appendChild(skeletonCard);
         }
 
@@ -72,15 +75,41 @@ document.addEventListener('DOMContentLoaded', function() {
                     const card = document.createElement('div');
                     card.classList.add('item-card');
                     card.innerHTML = `
-            <div class="item-icon-area">
-              ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name || 'Item Icon'}" loading="lazy">` : `<div class="item-icon">${item.name ? item.name.charAt(0).toUpperCase() : '?'}</div>`}
-            </div>
-            <div class="item-details">
-              <h3 class="item-name">${item.name || 'Unnamed Item'}</h3>
-              ${item.amount ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
-              ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
-            </div>
-          `;
+                        <div class="item-icon-area">
+                            ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name || 'Item Icon'}" loading="lazy">` : `<div class="item-icon">${item.name ? item.name.charAt(0).toUpperCase() : '?'}</div>`}
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-name">${item.name || 'Unnamed Item'}</h3>
+                            ${item.amount ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
+                            ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
+                        </div>
+                        <div class="item-buttons" style="display:none;">
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </div>
+                    `;
+
+                    // Ensure buttons are hidden initially
+                    const buttons = card.querySelector('.item-buttons');
+                    buttons.style.display = 'none';
+
+                    // Handle clicking a card to expand
+                    card.addEventListener('click', function() {
+                        const currentlyExpanded = document.querySelector('.item-card.expanded');
+                        if (currentlyExpanded && currentlyExpanded !== card) {
+                            currentlyExpanded.classList.remove('expanded');
+                            currentlyExpanded.querySelector('.item-buttons').style.display = 'none';
+                        }
+
+                        card.classList.toggle('expanded');
+                        const buttons = card.querySelector('.item-buttons');
+                        if (card.classList.contains('expanded')) {
+                            buttons.style.display = 'block';
+                        } else {
+                            buttons.style.display = 'none';
+                        }
+                    });
+
                     itemCardsContainer.appendChild(card);
                 });
             })
