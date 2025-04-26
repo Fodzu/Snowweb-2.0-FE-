@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
                     card.addEventListener('click', function() {
+                        openItemViewer(item);
                         const currentlyExpanded = document.querySelector('.item-card.expanded');
                         if (currentlyExpanded && currentlyExpanded !== card) {
                             currentlyExpanded.classList.remove('expanded');
