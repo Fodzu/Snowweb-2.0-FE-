@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteBtn.addEventListener('click', () => {
             const itemId = document.getElementById('itemViewer').dataset.itemId;
             const itemName = document.getElementById('itemViewer').dataset.itemName;
-            const backendUrl = 'http://localhost:8081'; // Backend URL
+            const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
 
             // Confirm deletion
             if (confirm(`Are you sure you want to delete ${itemName}?`)) {

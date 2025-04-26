@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const itemsBtn = document.getElementById('itemsBtn');
     const itemCardsContainer = document.getElementById('itemCardsContainer');
-    const backendUrl = 'http://localhost:8081';
+    const backendUrl = 'https://snowbase-production.up.railway.app';
 
     itemsBtn.addEventListener('click', function() {
         itemCardsContainer.innerHTML = '';
