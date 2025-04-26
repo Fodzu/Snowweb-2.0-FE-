@@ -13,7 +13,7 @@ document.getElementById('homeBtn').addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 document.querySelector('.btn-Additem').addEventListener('click', function() {
-    window.location.href = 'itemadd.html'; // Redirect to itemadd.html
+    window.location.href = 'itemadd.html';
 });
 
 
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const backendUrl = 'https://snowbase-production.up.railway.app';
 
     itemsBtn.addEventListener('click', function() {
-        itemCardsContainer.innerHTML = ''; // Clear any existing content
-        itemCardsContainer.style.display = 'grid'; // Show the container
+        itemCardsContainer.innerHTML = '';
+        itemCardsContainer.style.display = 'grid';
 
         // Render skeleton cards
         for (let i = 0; i < 4; i++) {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                itemCardsContainer.innerHTML = ''; // Clear skeletons
+                itemCardsContainer.innerHTML = '';
 
                 data.forEach(item => {
                     const card = document.createElement('div');
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="item-details">
                             <h3 class="item-name">${item.name || 'Unnamed Item'}</h3>
-                            ${item.amount ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
+                            ${item.quantity ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
                             ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
                         </div>
                         <div class="item-buttons" style="display:none;">
@@ -89,11 +89,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     `;
 
-                    // Ensure buttons are hidden initially
+
                     const buttons = card.querySelector('.item-buttons');
                     buttons.style.display = 'none';
 
-                    // Handle clicking a card to expand
+
                     card.addEventListener('click', function() {
                         const currentlyExpanded = document.querySelector('.item-card.expanded');
                         if (currentlyExpanded && currentlyExpanded !== card) {

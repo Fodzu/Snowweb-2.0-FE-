@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('submitBtn').addEventListener('click', function(event) {
     event.preventDefault();
+    const backendUrl = 'https://snowbase-production.up.railway.app';
 
 
     const newItem = {
@@ -48,14 +49,13 @@ document.getElementById('submitBtn').addEventListener('click', function(event) {
     value: parseInt(document.getElementById('itemValue').value)
 };
 
-    // Send POST request
-    fetch('https://snowbase-production.up.railway.app/api/items', {
-    method: 'POST',
-    headers: {
-    'Content-Type': 'application/json'
-},
-    body: JSON.stringify(newItem)
-})
+    fetch(`${backendUrl}/api/items`, { // Use the backendUrl variable
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newItem)
+    })
     .then(response => {
     if (response.ok) {
     alert('Item added successfully!');
