@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    function openItemViewer(itemData) {
-        document.getElementById('viewerImage').src = itemData.imageUrl || '';
-        document.getElementById('viewerName').textContent = itemData.name || 'Unnamed Item';
-        document.getElementById('viewerDescription').textContent = itemData.description || 'No description';
-        document.getElementById('viewerExtra').textContent = itemData.extra || '';
+    function openItemViewer(Item) {
+        document.getElementById('viewerImage').src = Item.imageUrl || '';
+        document.getElementById('viewerName').textContent = Item.name || 'Unnamed Item';
+        document.getElementById('viewerDescription').textContent = Item.description || 'No description';
+        document.getElementById('viewerExtra').textContent = Item.extra || '';
 
         const viewer = document.getElementById('itemViewer');
         viewer.classList.remove('hidden');
@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('editForm').style.display = 'none';
 
         // Store item data for editing
-        viewer.dataset.itemId = itemData.id;
-        viewer.dataset.itemName = itemData.name;
-        viewer.dataset.itemDescription = itemData.description;
-        viewer.dataset.itemImageUrl = itemData.imageUrl;
-        viewer.dataset.itemQuantity = itemData.quantity;
-        viewer.dataset.itemValue = itemData.value;
+        viewer.dataset.itemId = Item.id;
+        viewer.dataset.itemName = Item.name;
+        viewer.dataset.itemDescription = Item.description;
+        viewer.dataset.itemImageUrl = Item.imageUrl;
+        viewer.dataset.itemQuantity = Item.quantity;
+        viewer.dataset.itemValue = Item.value;
     }
 
     const viewerClose = document.getElementById('viewerClose');
