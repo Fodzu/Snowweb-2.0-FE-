@@ -8,15 +8,12 @@ document.getElementById('sidebarToggle').addEventListener('click', () => {
     toggleLine.style.left = isCollapsed ? '80px' : '320px';
 });
 
-
 document.getElementById('homeBtn').addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 document.querySelector('.btn-Additem').addEventListener('click', function() {
     window.location.href = 'itemadd.html';
 });
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const itemsBtn = document.getElementById('itemsBtn');
@@ -83,28 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${item.quantity ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
                             ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
                         </div>
-` ;
-
-
-                    const buttons = card.querySelector('.item-buttons');
-                    buttons.style.display = 'none';
-
+                    `;
 
                     card.addEventListener('click', function() {
                         openItemViewer(item);
                         const currentlyExpanded = document.querySelector('.item-card.expanded');
                         if (currentlyExpanded && currentlyExpanded !== card) {
                             currentlyExpanded.classList.remove('expanded');
-                            currentlyExpanded.querySelector('.item-buttons').style.display = 'none';
                         }
 
                         card.classList.toggle('expanded');
-                        const buttons = card.querySelector('.item-buttons');
-                        if (card.classList.contains('expanded')) {
-                            buttons.style.display = 'block';
-                        } else {
-                            buttons.style.display = 'none';
-                        }
                     });
 
                     itemCardsContainer.appendChild(card);
