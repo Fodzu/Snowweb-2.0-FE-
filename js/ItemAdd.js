@@ -40,35 +40,36 @@ document.getElementById('submitBtn').addEventListener('click', function(event) {
     event.preventDefault();
     const backendUrl = 'https://snowbase-production.up.railway.app';
 
-
     const newItem = {
-    name: document.getElementById('itemName').value,
-    description: document.getElementById('itemDescription').value,
-    imageUrl: document.getElementById('itemImageUrl').value,
-    quantity: parseInt(document.getElementById('itemQuantity').value),
-    value: parseInt(document.getElementById('itemValue').value)
-};
+        name: document.getElementById('itemName').value,
+        description: document.getElementById('itemDescription').value,
+        imageUrl: document.getElementById('itemImageUrl').value,
+        quantity: parseInt(document.getElementById('itemQuantity').value),
+        value: parseInt(document.getElementById('itemValue').value)
+    };
 
-    fetch(`${backendUrl}/api/items`, { // Use the backendUrl variable
+    // Debugging: Print the new item data to the console
+    console.log('Submitting new item:', newItem);
+
+    fetch(`${backendUrl}/api/items`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newItem)
     })
-    .then(response => {
-    if (response.ok) {
-    alert('Item added successfully!');
-    // Clear the form
-    document.getElementById('itemForm').reset();
-} else {
-    alert('Failed to add item.');
-}
-})
-    .catch(error => {
-    console.error('Error:', error);
-    alert('Error adding item.');
-});
+        .then(response => {
+            if (response.ok) {
+                alert('Item added successfully!');
+                document.getElementById('itemForm').reset();
+            } else {
+                alert('Failed to add item.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error adding item.');
+        });
 });
 
 

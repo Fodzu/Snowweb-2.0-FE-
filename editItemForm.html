@@ -122,31 +122,48 @@
 </div>
 
 <script>
-    // Extract item data from URL parameters
-    function getQueryParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return {
-            id: urlParams.get('id'),
-            name: urlParams.get('name'),
-            description: urlParams.get('description'),
-            imageUrl: urlParams.get('imageUrl'),
-            quantity: urlParams.get('quantity'),
-            value: urlParams.get('value')
-        };
+    // Submit edited item functionality
+    const submitEditBtn = document.getElementById('submitEditBtn');
+    if (submitEditBtn) {
+        submitEditBtn.addEventListener('click', (event) => {
+            const backendUrl = 'https://snowbase-production.up.railway.app'; // Backend URL
+            event.preventDefault();
+
+            // Get the updated item data from the form
+            const itemId = document.getElementById('edititemId').value;
+            const name = document.getElementById('editName').value;
+            const description = document.getElementById('editDescription').value;
+            const imageUrl = document.getElementById('editImageUrl').value;
+            const quantity = document.getElementById('editQuantity').value;
+            const value = document.getElementById('editValue').value;
+
+            const updateditem = { name, description, imageUrl, quantity, value };
+
+            // Send the updated data to the backend
+            fetch(`${backendUrl}/api/items/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateditem),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('item updated:', data);
+
+                    window.location.href = 'winterswiki.html';
+                })
+                .catch(error => {
+                    console.error('Error updating item:', error);
+                });
+        });
     }
 
-    // Populate form fields with the extracted values
-    document.addEventListener('DOMContentLoaded', function () {
-        const item = getQueryParams();
-
-        // Set form field values with item data
-        document.getElementById('itemID').value = item.id;
-        document.getElementById('newItemName').value = item.name;
-        document.getElementById('newItemDescription').value = item.description;
-        document.getElementById('newItemImageUrl').value = item.imageUrl;
-        document.getElementById('newItemQuantity').value = item.quantity;
-        document.getElementById('newItemValue').value = item.value;
-    });
 </script>
 </body>
 </html>
