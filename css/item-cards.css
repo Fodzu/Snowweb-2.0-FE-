@@ -1,10 +1,10 @@
 .item-card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, auto)); /* minmax with auto */
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
     gap: 20px;
     padding: 20px;
     margin-top: 20px;
-    justify-content: flex-start; /* Align cards to the left */
+    justify-content: flex-start;
 }
 
 .item-card {
@@ -14,8 +14,8 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: 200px; /* Fixed width */
-    height: 300px; /* Maintain desired height */
+    width: 200px;
+    height: 300px;
 }
 
 .item-icon-area {
@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    flex-grow: 1; /* Allow it to take up more vertical space */
+    flex-grow: 1;
 }
 
 .item-icon {
@@ -60,4 +60,73 @@
     color: #ccc;
     margin-bottom: 3px;
     font-size: 0.9em;
+}
+
+
+/*SKELETON STYLE OR LOADING THINGY*/
+
+
+.skeleton-card {
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    align-items: center;
+}
+
+.skeleton-icon-area {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.skeleton-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.skeleton-text {
+    background-color: #444;
+    border-radius: 5px;
+    height: 1em;
+    margin-bottom: 0.5em;
+}
+
+.skeleton-text-long {
+    width: 80%;
+}
+
+.skeleton-text-medium {
+    width: 60%;
+}
+
+.skeleton-text-short {
+    width: 40%;
+}
+
+.skeleton-card > .item-icon-area,
+.skeleton-card > .item-details > * {
+    animation: skeleton-loading 1.5s infinite linear;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #2a2a2a;
+    }
+    50% {
+        background-color: #333;
+    }
+    100% {
+        background-color: #2a2a2a;
+    }
 }

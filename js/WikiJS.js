@@ -34,5 +34,59 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const itemsBtn = document.getElementById('itemsBtn');
+    const itemCardsContainer = document.getElementById('itemCardsContainer');
+    const backendUrl = 'YOUR_RAILWAY_BACKEND_URL'; // Replace with your actual backend URL
 
+    itemsBtn.addEventListener('click', function() {
+        itemCardsContainer.innerHTML = ''; // Clear any existing content
+        itemCardsContainer.style.display = 'grid'; // Show the container
 
+        // Render skeleton cards
+        for (let i = 0; i < 4; i++) { // Example: show 4 skeleton cards initially
+            const skeletonCard = document.createElement('div');
+            skeletonCard.classList.add('item-card', 'skeleton-card');
+            skeletonCard.innerHTML = `
+        <div class="item-icon-area skeleton-icon"></div>
+        <div class="item-details">
+          <h3 class="item-name skeleton-text skeleton-text-long"></h3>
+          <p class="item-amount skeleton-text skeleton-text-medium"></p>
+          <p class="item-value skeleton-text skeleton-text-short"></p>
+        </div>
+      `;
+            itemCardsContainer.appendChild(skeletonCard);
+        }
+
+        fetch(`${backendUrl}/api/items`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                itemCardsContainer.innerHTML = ''; // Clear skeletons
+
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.classList.add('item-card');
+                    card.innerHTML = `
+            <div class="item-icon-area">
+              ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name || 'Item Icon'}" loading="lazy">` : `<div class="item-icon">${item.name ? item.name.charAt(0).toUpperCase() : '?'}</div>`}
+            </div>
+            <div class="item-details">
+              <h3 class="item-name">${item.name || 'Unnamed Item'}</h3>
+              ${item.amount ? `<p class="item-amount">Found: ${item.amount}</p>` : ''}
+              ${item.value ? `<p class="item-value">Worth: ${item.value}</p>` : ''}
+            </div>
+          `;
+                    itemCardsContainer.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching items:', error);
+                itemCardsContainer.innerHTML = '<p>Failed to load items.</p>';
+            });
+    });
+});
