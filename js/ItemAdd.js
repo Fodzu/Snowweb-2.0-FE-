@@ -33,9 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
 document.getElementById('submitBtn').addEventListener('click', function(event) {
     event.preventDefault();
     const backendUrl = 'https://snowbase-production.up.railway.app';
@@ -50,7 +47,6 @@ document.getElementById('submitBtn').addEventListener('click', function(event) {
 
     // Debugging: Print the new item data to the console
     console.log('Submitting new item:', newItem);
-
     fetch(`${backendUrl}/api/items`, {
         method: 'POST',
         headers: {
